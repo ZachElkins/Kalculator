@@ -26,6 +26,7 @@ class Scanner(source: String) {
             when (c) {
                 in tokenMap.keys -> addToken(tokenMap[c]!!)
                 in '0'..'9' -> scanNumber()
+                in 'a'..'z' -> scanVariable()
                 ' ' -> continue
                 else -> throw TokenError(message="Unexpected character $c at place $current.")
             }
@@ -42,6 +43,12 @@ class Scanner(source: String) {
         }
 
         addToken(tokenType=NUMBER, literal=source.substring(start, current).toDouble())
+    }
+
+    private fun scanVariable() {
+        while (peek().isLetter()) advance()
+
+        addToken(tokenType=IDENTIFIER, literal=source.substring(start, current))
     }
 
     private fun addToken(tokenType: TokenType, literal: Any?) {

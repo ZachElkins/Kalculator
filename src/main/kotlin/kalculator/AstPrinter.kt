@@ -21,4 +21,8 @@ class AstPrinter: Expr.Visitor<String> {
     override fun visitGroupingExpr(expr: Expr.Grouping): String {
         return "(group ${expr.expression.accept(this)})"
     }
+
+    override fun visitVariableExpr(expr: Expr.Variable): String {
+        return "(var ${expr.name.lexeme})"
+    }
 }

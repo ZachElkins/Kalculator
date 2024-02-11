@@ -3,6 +3,7 @@ package kalculator
 import kalculator.TokenType.*
 
 class Interpreter: Expr.Visitor<Any?> {
+    val environment = Environment()
 
     fun interpret(expressions: List<Expr>) {
         for (expression in expressions) {
@@ -12,6 +13,7 @@ class Interpreter: Expr.Visitor<Any?> {
 
     private fun execute(expr: Expr) {
         val output = evaluate(expr)
+        environment.assign(Token(type=IDENTIFIER, lexeme=VAR_NAME, literal=null), output!!)
         println("= $output")
     }
 
@@ -45,5 +47,9 @@ class Interpreter: Expr.Visitor<Any?> {
 
     override fun visitGroupingExpr(expr: Expr.Grouping): Any? {
         return evaluate(expr.expression)
+    }
+
+    override fun visitVariableExpr(expr: Expr.Variable): Any? {
+        return environment.get(expr.name)
     }
 }

@@ -64,6 +64,9 @@ class Parser (tokens: List<Token>) {
             return Expr.Grouping(expr)
         }
 
+        if (match(IDENTIFIER)) {
+            return Expr.Variable(previous())
+        }
         throw ParseError(message="Expected expression ${errorLocation()}.")
     }
 

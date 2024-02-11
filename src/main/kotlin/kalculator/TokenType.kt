@@ -7,5 +7,6 @@ enum class TokenType {
     SLASH,
     STAR,
     LEFT_PAREN,
-    RIGHT_PAREN
+    RIGHT_PAREN,
+    IDENTIFIER
 }

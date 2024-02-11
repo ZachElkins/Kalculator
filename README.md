@@ -36,3 +36,8 @@ java -jar ./build/kalculator.jar [equation]
 | Division       | `n / n`   |
 | Multiplication | `n * n`   |
 | Ordering       | `( ... )` |
+| Variable       | `x`       |
+
+### Variables
+There is a single variable `x`. It is only available in the REPL after the first equation is resolved.
+At which point, `x` is automatically set to the result of the previous equation.

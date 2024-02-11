@@ -3,6 +3,7 @@ package kalculator
 import kotlin.system.exitProcess
 
 var DEBUG = false
+var VAR_NAME = "x"
 
 fun main(args: Array<String>) {
     val equation: String? = if (args.isNotEmpty()) handleArgs(args) else null
@@ -44,12 +45,13 @@ fun prompt() {
     }
 }
 
+val interpreter = Interpreter()
+
 fun run(source: String) {
     val scanner = Scanner(source=source)
     val tokens = scanner.scan()
     val parser = Parser(tokens=tokens)
     val expressions = parser.parse()
-    val interpreter = Interpreter()
     interpreter.interpret(expressions=expressions)
 
     if (!DEBUG) return

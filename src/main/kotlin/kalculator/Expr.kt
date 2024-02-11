@@ -7,6 +7,7 @@ abstract class Expr {
         fun visitBinaryExpr(expr: Binary): T
         fun visitUnaryExpr(expr: Unary): T
         fun visitGroupingExpr(expr: Grouping): T
+        fun visitVariableExpr(expr: Variable): T
     }
 
     abstract fun <T>accept(visitor: Visitor<T>): T
@@ -32,6 +33,12 @@ abstract class Expr {
     data class Grouping(val expression: Expr): Expr() {
         override fun <T>accept(visitor: Visitor<T>): T {
             return visitor.visitGroupingExpr(this)
+        }
+    }
+
+    data class Variable(val name: Token): Expr() {
+        override fun <T>accept(visitor: Visitor<T>): T {
+            return visitor.visitVariableExpr(this)
         }
     }
 }
