@@ -22,7 +22,7 @@ class Parser (tokens: List<Token>) {
 
     private fun term(): Expr {
         var expr = factor()
-        while (match(MINUS, PLUS)) {
+        while (match(CARROT, MINUS, PLUS)) {
             val operator = previous()
             val right = factor()
             expr = Expr.Binary(expr, operator, right)

@@ -29,14 +29,15 @@ java -jar ./build/kalculator.jar [equation]
 | `--debug` | `-d`      | Run in debug mode |
 
 ## Syntax
-| Operation      | Syntax    |
-|----------------|-----------|
-| Addition       | `n + n`   |
-| Subtraction    | `n - n`   |
-| Division       | `n / n`   |
-| Multiplication | `n * n`   |
-| Ordering       | `( ... )` |
-| Variable       | `x`       |
+| Operation       | Syntax    |
+|-----------------|-----------|
+| Addition        | `n + n`   |
+| Subtraction     | `n - n`   |
+| Division        | `n / n`   |
+| Multiplication  | `n * n`   |
+| Exponentiation  | `n^n`     |
+| Ordering        | `( ... )` |
+| Variable        | `x`       |
 
 ### Variables
 There is a single variable `x`. It is only available in the REPL after the first equation is resolved.

@@ -1,6 +1,8 @@
 package kalculator
 
 import kalculator.TokenType.*
+import kotlin.math.exp
+import kotlin.math.pow
 
 class Interpreter: Expr.Visitor<Any?> {
     val environment = Environment()
@@ -29,6 +31,7 @@ class Interpreter: Expr.Visitor<Any?> {
         val left = evaluate(expr.left)
         val right = evaluate(expr.right)
         when (expr.operator.type) {
+            CARROT -> return (left as Double).pow(right as Double)
             PLUS -> return left as Double + right as Double
             MINUS -> return left as Double - right as Double
             SLASH -> return left as Double / right as Double

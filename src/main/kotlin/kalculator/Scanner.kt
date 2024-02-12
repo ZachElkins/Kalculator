@@ -10,6 +10,7 @@ class Scanner(source: String) {
 
     companion object {
         val tokenMap: Map<Char, TokenType> = mapOf(
+            '^' to CARROT,
             '-' to MINUS,
             '+' to PLUS,
             '/' to SLASH,

@@ -2,6 +2,7 @@ package kalculator
 
 enum class TokenType {
     NUMBER,
+    CARROT,
     MINUS,
     PLUS,
     SLASH,
