@@ -55,19 +55,30 @@ class Parser (tokens: List<Token>) {
 
     private fun primary(): Expr {
         if (match(NUMBER)) {
+            val literal = Expr.Literal(value = previous().literal)
+            if (check(LEFT_PAREN) || check(IDENTIFIER)) return implicitMultiplication(expr=literal)
             return Expr.Literal(value = previous().literal)
         }
 
         if (match(LEFT_PAREN)) {
             val expr = expression()
             consume(RIGHT_PAREN, "Expected ')' after expression.")
-            return Expr.Grouping(expr)
+            val grouping = Expr.Grouping(expr)
+            if (check(LEFT_PAREN) || check(NUMBER) || check(IDENTIFIER)) return implicitMultiplication(expr=grouping)
+            return grouping
         }
 
         if (match(IDENTIFIER)) {
-            return Expr.Variable(previous())
+            val variable = Expr.Variable(previous())
+            if (check(LEFT_PAREN) || check(NUMBER)) return implicitMultiplication(expr=variable)
+            return variable
         }
         throw ParseError(message="Expected expression ${errorLocation()}.")
+    }
+
+    private fun implicitMultiplication(expr: Expr): Expr {
+        val operator = Token(STAR, "*", null)
+        return Expr.Binary(expr, operator, term())
     }
 
     private fun match(vararg types: TokenType): Boolean {
