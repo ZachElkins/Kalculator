@@ -50,7 +50,25 @@ class Parser (tokens: List<Token>) {
             return Expr.Unary(operator, right)
         }
 
-        return primary()
+        return call()
+    }
+
+    private fun call(): Expr {
+        val expr: Expr = primary()
+        if (match(LEFT_BRACE)) {
+            val arguments: MutableList<Expr> = ArrayList()
+            if (!check(RIGHT_BRACE)) {
+                do {
+                    arguments.add(expression())
+                } while (match(COMMA))
+            }
+
+            consume(RIGHT_BRACE, "Expected '}' after argument list")
+
+            return Expr.Call(callee=expr, arguments=arguments)
+        }
+
+        return expr
     }
 
     private fun primary(): Expr {

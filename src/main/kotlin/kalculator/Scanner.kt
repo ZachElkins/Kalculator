@@ -16,7 +16,10 @@ class Scanner(source: String) {
             '/' to SLASH,
             '*' to STAR,
             '(' to LEFT_PAREN,
-            ')' to RIGHT_PAREN
+            ')' to RIGHT_PAREN,
+            '{' to LEFT_BRACE,
+            '}' to RIGHT_BRACE,
+            ',' to COMMA
         )
     }
 

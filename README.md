@@ -42,3 +42,25 @@ java -jar ./build/kalculator.jar [equation]
 ### Variables
 There is a single variable `x`. It is only available in the REPL after the first equation is resolved.
 At which point, `x` is automatically set to the result of the previous equation.
+
+### Grammar
+```
+equation    -> ( expression )*
+
+expression  -> term
+
+term        -> factor ( ( '-' | '+' ) factor | factor )*
+
+factor      -> unary ( ( '/' | '*' ) unary | unary )*
+
+unary       -> ( '-' ) unary
+            | primary
+            
+call        -> IDENTIFIER ( '{' arguments? '}' )*
+
+arguments   -> expression ( ',' expression )*
+
+primary     -> NUMBER
+            -> IDENTIFIER
+            | '(' expression ')'
+```
