@@ -1,11 +1,16 @@
 package kalculator
 
 import kalculator.TokenType.*
-import kotlin.math.exp
+import kalculator.builtin.Function
+import kalculator.builtin.Root
 import kotlin.math.pow
 
 class Interpreter: Expr.Visitor<Any?> {
     val environment = Environment()
+
+    constructor() {
+        environment.assign("root", Root())
+    }
 
     fun interpret(expressions: List<Expr>) {
         for (expression in expressions) {
@@ -54,5 +59,20 @@ class Interpreter: Expr.Visitor<Any?> {
 
     override fun visitVariableExpr(expr: Expr.Variable): Any? {
         return environment.get(expr.name)
+    }
+
+    override fun visitCallExpr(expr: Expr.Call): Any? {
+        val callee: Any? = evaluate(expr.callee)
+        val arguments: MutableList<Any?> = ArrayList()
+        for (argument in expr.arguments) {
+            arguments.add(evaluate(argument))
+        }
+        if (callee !is Function)
+            throw InterpretError("Can only call functions")
+
+        if (arguments.size != callee.arity())
+            throw InterpretError("Expected ${callee.arity()} arguments but received ${arguments.size}.")
+
+        return callee.call(arguments)
     }
 }

@@ -25,4 +25,9 @@ class AstPrinter: Expr.Visitor<String> {
     override fun visitVariableExpr(expr: Expr.Variable): String {
         return "(var ${expr.name.lexeme})"
     }
+
+    override fun visitCallExpr(expr: Expr.Call): String {
+        val arguments = expr.arguments.map {it.accept(this)}
+        return "(fn ${(expr.callee as Expr.Variable).name.lexeme}: ${arguments.joinToString(", ")})"
+    }
 }

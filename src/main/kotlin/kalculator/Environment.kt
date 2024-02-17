@@ -12,6 +12,10 @@ class Environment {
     }
 
     fun assign(name: Token, value: Any) {
-        values.put(name.lexeme, value)
+        assign(name.lexeme, value)
+    }
+
+    fun assign(name: String, value: Any) {
+        values.put(name, value)
     }
 }

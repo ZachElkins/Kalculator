@@ -9,5 +9,8 @@ enum class TokenType {
     STAR,
     LEFT_PAREN,
     RIGHT_PAREN,
-    IDENTIFIER
+    LEFT_BRACE,
+    RIGHT_BRACE,
+    IDENTIFIER,
+    COMMA
 }

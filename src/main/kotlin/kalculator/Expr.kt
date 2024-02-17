@@ -8,6 +8,7 @@ abstract class Expr {
         fun visitUnaryExpr(expr: Unary): T
         fun visitGroupingExpr(expr: Grouping): T
         fun visitVariableExpr(expr: Variable): T
+        fun visitCallExpr(expr: Call): T
     }
 
     abstract fun <T>accept(visitor: Visitor<T>): T
@@ -39,6 +40,12 @@ abstract class Expr {
     data class Variable(val name: Token): Expr() {
         override fun <T>accept(visitor: Visitor<T>): T {
             return visitor.visitVariableExpr(this)
+        }
+    }
+
+    data class Call(val callee: Expr, val arguments: List<Expr>): Expr() {
+        override fun <T>accept(visitor: Visitor<T>): T {
+            return visitor.visitCallExpr(this)
         }
     }
 }
