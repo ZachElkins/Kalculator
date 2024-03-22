@@ -17,7 +17,19 @@ class Parser (tokens: List<Token>) {
     }
 
     private fun expression(): Expr {
-        return term()
+        return pipe()
+    }
+
+    private fun pipe(): Expr {
+        var expr = term()
+
+        while (match(PIPE)) {
+            val operator = previous()
+            val right = term()
+            expr = Expr.Pipe(expr, operator, right)
+        }
+
+        return expr
     }
 
     private fun term(): Expr {

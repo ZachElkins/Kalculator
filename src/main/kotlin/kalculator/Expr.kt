@@ -4,6 +4,7 @@ abstract class Expr {
 
     interface Visitor<T> {
         fun visitLiteralExpr(expr: Literal): T
+        fun visitPipeExpr(expr: Pipe): T
         fun visitBinaryExpr(expr: Binary): T
         fun visitUnaryExpr(expr: Unary): T
         fun visitGroupingExpr(expr: Grouping): T
@@ -16,6 +17,12 @@ abstract class Expr {
     data class Literal(val value: Any?): Expr() {
         override fun <T>accept(visitor: Visitor<T>): T {
             return visitor.visitLiteralExpr(this)
+        }
+    }
+
+    data class Pipe(val left: Expr, val operator: Token, val right: Expr): Expr() {
+        override fun <T>accept(visitor: Visitor<T>): T {
+            return visitor.visitPipeExpr(this)
         }
     }
 

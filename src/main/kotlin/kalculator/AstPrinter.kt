@@ -10,6 +10,10 @@ class AstPrinter: Expr.Visitor<String> {
         return expr.value.toString()
     }
 
+    override fun visitPipeExpr(expr: Expr.Pipe): String {
+        return "(${expr.left.accept(this)} | ${expr.right.accept(this)})"
+    }
+
     override fun visitBinaryExpr(expr: Expr.Binary): String {
         return "(${expr.operator.lexeme} ${expr.left.accept(this)}, ${expr.right.accept(this)})"
     }

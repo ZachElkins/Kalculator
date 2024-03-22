@@ -32,6 +32,13 @@ class Interpreter: Expr.Visitor<Any?> {
         return expr.value
     }
 
+    override fun visitPipeExpr(expr: Expr.Pipe): Any? {
+        val left = evaluate(expr.left)
+        environment.assign(Token(type=IDENTIFIER, lexeme=VAR_NAME, literal=null), left!!)
+        val right = evaluate(expr.right)
+        return right;
+    }
+
     override fun visitBinaryExpr(expr: Expr.Binary): Any {
         val left = evaluate(expr.left)
         val right = evaluate(expr.right)

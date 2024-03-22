@@ -19,7 +19,8 @@ class Scanner(source: String) {
             ')' to RIGHT_PAREN,
             '{' to LEFT_BRACE,
             '}' to RIGHT_BRACE,
-            ',' to COMMA
+            ',' to COMMA,
+            '|' to PIPE,
         )
     }
 
